@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+Originally, forked from [jhargett1/nextjs-notes-app](jhargett1/nextjs-notes-app).
+
 ## Getting Started
 
 First, run the development server:

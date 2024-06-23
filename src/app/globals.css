@@ -31,3 +31,15 @@ body {
     text-wrap: balance;
   }
 }
+
+/*
+.container {
+  display: flex;
+  align-items: stretch;
+}
+
+.flex {
+  display: flex;
+  height: 100vh;
+} 
+*/
