@@ -5,10 +5,8 @@ import { signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 
 const HeaderNav = ({
-  user,
   filterByColor,
 }: {
-  user: User | undefined;
   filterByColor: (color: string) => void;
 }) => {
   const [showColors, setShowColors] = useState(false);
@@ -47,7 +45,7 @@ const HeaderNav = ({
               Notes
             </span>
           </a>
-          <div className="flex items-center gap-2 text-black dark:text-white text-sm">
+          <div className="flex items-center gap-[0.375em] text-black dark:text-white text-sm">
             <a href="">Home</a>
             <span>|</span>
 
@@ -80,41 +78,7 @@ const HeaderNav = ({
             <span>|</span>
             <span>Archive</span>
           </div>
-          <div className="flex items-center gap-4">
-            {!user && (
-              // <button
-              //   className="text-black dark:text-white"
-              //   onClick={() => signIn()}
-              // >
-              //   Sign In
-              // </button>
-              <Button
-                className="text-black dark:text-white px-2"
-                onClick={() => signIn()}
-              >
-                Sign In
-              </Button>
-            )}
-            {user && (
-              <>
-                <p className="text-black dark:text-white">
-                  Welcome {user?.name}
-                </p>
-                {/* <button
-                  className="text-black dark:text-white"
-                  onClick={() => signOut()}
-                >
-                  Sign Out
-                </button> */}
-                <Button
-                  className="text-black dark:text-white px-2"
-                  onClick={() => signOut()}
-                >
-                  Sign Out
-                </Button>
-              </>
-            )}
-          </div>
+          <div className=""></div>
         </div>
       </nav>
     </>

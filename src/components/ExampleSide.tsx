@@ -1,8 +1,9 @@
 "use client";
 
+import { Button } from "flowbite-react";
 import { Color, colors } from "@/lib/Colors";
 import { Note } from "@/lib/Note";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import React, { useState, Dispatch } from "react";
 
 function ExampleSide({
@@ -46,29 +47,62 @@ function ExampleSide({
     openModal();
   };
 
-  if (!session.data?.user) {
-    return (
-      <div className="flex flex-col h-screen w-48 justify-between bg-white mx-[10px]">
-        <div className="inline-flex flex-col h-16 w-auto items-center justify-center">
-          <span className="text-black font-medium">Log in first</span>
-        </div>
-      </div>
-    );
-  }
+  // if (!session.data?.user) {
+  //   return (
+  //     <div className="flex flex-col h-screen w-48 justify-between bg-white mx-[10px]">
+  //       <div className="inline-flex flex-col h-16 w-auto items-center justify-center">
+  //         <span className="text-black font-medium">Log in first</span>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
-    <div className="flex flex-col h-screen w-48 justify-between bg-white mx-[10px]">
-      <div className="inline-flex flex-col h-16 w-auto items-center justify-center gap-1">
-        <a
-          href=""
-          className="flex group relative text-gray-600 hover:bg-gray-50 hover:text-gray-800 p-1 rounded"
-          onClick={toggleMenu}
-        >
-          Toggle me
-        </a>
-        <span className="text-xs font-mono text-black">
-          ( <span className="italic">{isExpanded ? "open" : "closed"}</span> )
-        </span>
+    <div className="flex flex-col h-screen w-[12.5rem] justify-between bg-white mx-[10px]">
+      <div className="flex flex-col h-auto w-auto items-center justify-center gap-1 my-5">
+        {session?.data?.user && (
+          <>
+            <a
+              href=""
+              className="flex relative text-gray-600 hover:bg-gray-50 hover:text-gray-800 p-1 rounded"
+              onClick={toggleMenu}
+            >
+              Toggle me
+            </a>
+            <span className="text-xs font-mono text-black">
+              ( <span className="italic">{isExpanded ? "open" : "closed"}</span>{" "}
+              )
+            </span>
+          </>
+        )}
+        <div className="text-xs text-black flex flex-col items-center justify-center gap-2 mt-10">
+          {session?.data?.user ? (
+            <>
+              <span>
+                Welcome,
+                <br />
+                {session.data.user?.name}
+              </span>
+              <Button
+                className=" text-black dark:text-white px-2 py-0.5"
+                size="xs"
+                onClick={() => signOut()}
+              >
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                className="text-black dark:text-white px-2 py-0.5"
+                size="xs"
+                onClick={() => signIn()}
+              >
+                Sign In
+              </Button>
+            </>
+          )}
+        </div>
       </div>
 
       <div
