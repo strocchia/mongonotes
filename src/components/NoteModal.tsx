@@ -34,6 +34,8 @@ function NoteModal({
   const [content, setContent] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
 
+  const userId = notes.find((note) => note.id === editingId)?.userId;
+
   useEffect(() => {
     setContent("");
     if (editingId) {
@@ -60,9 +62,10 @@ function NoteModal({
         content: content,
         color: radioColor!,
         timestamp: new Date(),
+        userId,
       };
 
-      const blah = fetch("/api/mongo", {
+      const blah = await fetch("/api/mongo", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +99,7 @@ function NoteModal({
         timestamp: new Date(),
       };
 
-      const blah = fetch("/api/mongo", {
+      const blah = await fetch("/api/mongo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -3,6 +3,7 @@ import { Button, Dropdown } from "flowbite-react";
 import { User } from "next-auth";
 import { signIn, signOut } from "next-auth/react";
 import { useState } from "react";
+import Datepicker from "tailwind-datepicker-react";
 
 const HeaderNav = ({
   filterByColor,
@@ -11,6 +12,12 @@ const HeaderNav = ({
 }) => {
   const [showColors, setShowColors] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const [datePicked, setDatePicked] = useState("");
+
+  const filterByDate = (date: string) => {
+    console.log(date);
+  };
 
   return (
     <>
@@ -49,6 +56,7 @@ const HeaderNav = ({
             <a href="">Home</a>
             <span>|</span>
 
+            {/* <span>Filter by Color</span> */}
             <Dropdown
               label="Filter by Color"
               dismissOnClick
@@ -58,8 +66,9 @@ const HeaderNav = ({
               <Dropdown.Item onClick={() => filterByColor("")}>
                 all
               </Dropdown.Item>
-              {colors.map((clr) => (
+              {colors.map((clr, index) => (
                 <Dropdown.Item
+                  key={index}
                   className="flex gap-2"
                   onClick={() => filterByColor(clr.hashcode.replace("#", ""))}
                 >
@@ -74,7 +83,25 @@ const HeaderNav = ({
               ))}
             </Dropdown>
             <span>|</span>
-            <span>Filter by Date</span>
+            {/* <span>Filter by Date</span> */}
+            <Dropdown
+              label="Filter by Date"
+              dismissOnClick
+              className="p-2"
+              inline
+            >
+              {/* <PickerDate /> */}
+              {/* <Datepicker show={showDatePicker} setShow={setShowDatePicker} /> */}
+              <input
+                type="date"
+                placeholder="mm/dd/yyyy"
+                value={datePicked}
+                onChange={(e) => {
+                  setDatePicked(e.target.value);
+                  filterByDate(e.target.value);
+                }}
+              />
+            </Dropdown>
             <span>|</span>
             <span>Archive</span>
           </div>

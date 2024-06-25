@@ -26,6 +26,8 @@ function NotesGrid({
 }) {
   const [isEditing, setIsEditing] = useState(false);
 
+  const { data } = useSession();
+
   const newNoteModal = () => {
     setEditingContent("");
     setEditingId(null);
@@ -33,6 +35,11 @@ function NotesGrid({
   };
 
   const openEditModal = (note: Note) => {
+    if (note.userId !== data?.user?.id) {
+      alert("You cannot edit someone else's note!");
+      return;
+    }
+
     setEditingContent(note.content);
     setEditingId(note.id);
     setIsEditing(true);
@@ -49,7 +56,7 @@ function NotesGrid({
 
   return (
     <div>
-      <HeaderNav user={session.data?.user} filterByColor={filterByColor} />
+      <HeaderNav filterByColor={filterByColor} />
       {session.data?.user && (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
           {notes.map((nt: Note) => (

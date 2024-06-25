@@ -9,4 +9,5 @@ export type Note = {
   timestamp: Date;
   created?: Date;
   updated?: Date;
+  userId?: string;
 };

@@ -84,7 +84,8 @@ function ExampleSide({
                 {session.data.user?.name}
               </span>
               <Button
-                className=" text-black dark:text-white px-2 py-0.5"
+                color="gray"
+                className="text-black dark:text-white px-2 py-0.5"
                 size="xs"
                 onClick={() => signOut()}
               >
@@ -94,6 +95,7 @@ function ExampleSide({
           ) : (
             <>
               <Button
+                color="gray"
                 className="text-black dark:text-white px-2 py-0.5"
                 size="xs"
                 onClick={() => signIn()}
