@@ -1,9 +1,9 @@
 import { Note } from "@/lib/Note";
 import { useState } from "react";
+import { useAuth, useUser } from "@clerk/nextjs";
 import NoteComponent from "./NoteComponent";
 import TimestampButton from "./TimestampButton";
 import HeaderNav from "./HeaderNav";
-import { useSession } from "next-auth/react";
 
 function NotesGrid({
   notes,
@@ -26,7 +26,8 @@ function NotesGrid({
 }) {
   const [isEditing, setIsEditing] = useState(false);
 
-  const { data } = useSession();
+  const auth = useAuth();
+  const user = useUser();
 
   const newNoteModal = () => {
     setEditingContent("");
@@ -35,7 +36,7 @@ function NotesGrid({
   };
 
   const openEditModal = (note: Note) => {
-    if (note.userId !== data?.user?.id) {
+    if (note.userId !== auth.userId) {
       alert("You cannot edit someone else's note!");
       return;
     }
@@ -52,12 +53,15 @@ function NotesGrid({
     setIsEditing(false);
   };
 
-  const session = useSession();
-
   return (
     <div>
       <HeaderNav filterByColor={filterByColor} />
-      {session.data?.user && (
+      {notes.length === 0 && (
+        <div className="flex items-center justify-center mx-auto my-10">
+          Add a note
+        </div>
+      )}
+      {auth.sessionId && auth.userId && auth.isSignedIn && (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
           {notes.map((nt: Note) => (
             <div key={nt.id}>

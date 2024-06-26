@@ -9,8 +9,6 @@ export async function GET(
   const client = await clientPromise;
   const db = client.db("test");
 
-  console.log(params, `#${params.colorHash}`);
-
   const notes = await db
     .collection("notes")
     .find({

@@ -1,7 +1,5 @@
 import { colors } from "@/lib/Colors";
 import { Button, Dropdown } from "flowbite-react";
-import { User } from "next-auth";
-import { signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import Datepicker from "tailwind-datepicker-react";
 
@@ -34,7 +32,6 @@ const HeaderNav = ({
               preserveAspectRatio="xMidYMid meet"
               xmlns="http://www.w3.org/2000/svg"
               xmlnsXlink="http://www.w3.org/1999/xlink"
-              //   {...props}
               className="w-[36px] h-[36px] text-gray-800 dark:text-white"
             >
               <title>{"pencil-solid"}</title>
@@ -73,7 +70,7 @@ const HeaderNav = ({
                   onClick={() => filterByColor(clr.hashcode.replace("#", ""))}
                 >
                   <span
-                    className="h-5 w-5 rounded font-semibold border border-gray-400"
+                    className="h-5 w-5 rounded-full p-0 font-semibold border border-gray-400"
                     style={{ color: clr.hashcode }}
                   >
                     {clr.name.charAt(0).toUpperCase()}

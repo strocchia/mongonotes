@@ -2,14 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-import { auth, handlers } from "@/auth";
-import { SignIn } from "@/components/auth/signin-button";
-import { SignOut } from "@/components/auth/signout-button";
-import UserAvatar from "@/components/user-avatar";
-import { useSession, SessionProvider } from "next-auth/react";
-import ClientComponent from "@/components/clientComponent";
-// import Image from "next/image";
-
 import { Note } from "@/lib/Note";
 
 import "flowbite";
@@ -18,8 +10,6 @@ import ExampleSide from "@/components/ExampleSide";
 import NoteModal from "@/components/NoteModal";
 
 export default function Home() {
-  // const { data, status, update } = useSession();
-
   const [notes, setNotes] = useState<Note[]>([]);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -58,13 +48,7 @@ export default function Home() {
   };
 
   return (
-    <SessionProvider>
-      {/* <main className="flex min-h-screen flex-col items-center justify-center gap-10 p-24"> */}
-      {/* {!session && <SignIn />} */}
-      {/* {session && <SignOut />} */}
-      {/* <UserAvatar /> */}
-      {/* <ClientComponent /> */}
-      {/* </main> */}
+    <>
       <main>
         <div className="container flex max-w-screen-2xl">
           <div className="flex">
@@ -104,6 +88,6 @@ export default function Home() {
           )}
         </div>
       </main>
-    </SessionProvider>
+    </>
   );
 }

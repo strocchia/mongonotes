@@ -44,16 +44,6 @@ function NoteModal({
   }, [editingId, editingContent]);
 
   const handleSave = async () => {
-    console.log(
-      notes,
-      // setNotes,
-      selectedColor,
-      editingContent,
-      // setEditingContent,
-      editingId
-      // onClose
-    );
-
     const colorToSave = selectedColor ?? "";
 
     if (editingId) {
@@ -72,7 +62,6 @@ function NoteModal({
         },
         body: JSON.stringify(updatedNote),
       });
-      console.log("blah", blah);
 
       setNotes((prev) =>
         prev.map((note) =>
@@ -106,7 +95,6 @@ function NoteModal({
         },
         body: JSON.stringify(newNote),
       });
-      console.log(blah);
 
       setNotes((prev) => [...prev, newNote]);
 
@@ -120,7 +108,11 @@ function NoteModal({
   return (
     <>
       {/* <Button onClick={() => setOpenModal(true)}>Toggle modal</Button> */}
-      <Modal show={true} onClose={onClose}>
+      <Modal
+        show={true}
+        onClose={onClose}
+        className="backdrop-blur-md backdrop-brightness-[0.2]"
+      >
         <div className="flex flex-col gap-4 m-4">
           <Modal.Header></Modal.Header>
           <Modal.Body>
@@ -143,7 +135,7 @@ function NoteModal({
                 ></Textarea>
               </div>
               {colors.map((clr, idx) => (
-                <div className="flex items-center gap-2">
+                <div key={idx} className="flex items-center gap-2">
                   <Radio
                     id={`default-radio-${idx}`}
                     name={`default-radio-${idx}`}
@@ -174,64 +166,6 @@ function NoteModal({
       </Modal>
     </>
   );
-
-  //   return (
-  //     <div
-  //       id="noteModal"
-  //       className="flex justify-center items-center fixed top-0 right-0 left-0 z-50 w-full h-screen backdrop-blur-sm"
-  //     >
-  //       <form>
-  //         <div className="mb-4">
-  //           <label htmlFor="note" className="block mb-2 text-sm font-medium">
-  //             Note
-  //           </label>
-  //           <textarea
-  //             name="note"
-  //             id="note"
-  //             className="w-full text-sm text-gray-900 bg-gray-50"
-  //             rows={5}
-  //             value={content}
-  //             onChange={(evt) => setContent(evt.target.value)}
-  //             placeholder="Note here..."
-  //           ></textarea>
-  //         </div>
-  //         <div className="flex justify-end">
-  //           {/* <button
-  //             id="dropdownRadio"
-  //             type="button"
-  //             className="text-white bg-blue-700 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center"
-  //             onClick={() => setShowDropdown(!showDropdown)}
-  //           >
-  //             Color category
-  //           </button> */}
-  //           <div>
-  //             <ul>
-  //               {colors.map((clr, idx) => (
-  //                 <li key={idx}>
-  //                   <div className="flex items-center p-1">
-  //                     <input
-  //                       type="radio"
-  //                       name="default-radio"
-  //                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-  //                       value={clr.hashcode}
-  //                       checked={clr.hashcode === radioColor}
-  //                       onChange={(e) => setRadioColor(e.target.value)}
-  //                     />
-  //                     <label
-  //                       htmlFor="default-radio-4"
-  //                       className="w-full m-2 text-sm font-medium"
-  //                     >
-  //                       {clr.name}
-  //                     </label>
-  //                   </div>
-  //                 </li>
-  //               ))}
-  //             </ul>
-  //           </div>
-  //         </div>
-  //       </form>
-  //     </div>
-  //   );
 }
 
 export default NoteModal;

@@ -3,6 +3,15 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import FlowbiteContext from "@/components/FlowbiteContext";
 
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignOutButton,
+  UserButton,
+} from "@clerk/nextjs";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,10 +26,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <FlowbiteContext>{children}</FlowbiteContext>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <SignedOut>
+            <div className="flex items-center justify-center w-full h-[90vh]">
+              <div className="border rounded-lg p-4 border-white text-white">
+                <SignInButton />
+              </div>
+            </div>
+          </SignedOut>
+          <SignedIn>
+            <FlowbiteContext>{children}</FlowbiteContext>
+          </SignedIn>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
